@@ -17,7 +17,7 @@ export default function CadastroUsuarioScreen({ navigation }) {
             <View>
                 <Header
                     leftComponent={<BackButton navigator={navigation} componentName="HomeScreen" />}
-                    centerComponent={{ text: 'Usuario', style: { color: '#fff' } }}
+                    centerComponent={{ text: 'USUARIO', style: { color: '#fff' } }}
                 />
             </View>
 

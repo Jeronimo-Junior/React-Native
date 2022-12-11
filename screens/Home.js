@@ -7,7 +7,7 @@ import React, {useState} from 'react';
 
 
 export default function HomeScreen({ navigation }) {
-    const [contador, setcontador] = useState();
+    const [contador, setcontador] = useState(0);
     
     
     
