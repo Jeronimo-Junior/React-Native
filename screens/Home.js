@@ -1,16 +1,17 @@
-import * as React from 'react';
 import { View } from 'react-native';
 import { Input, Image, Button } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-
-
-
-
+import React, {useState} from 'react';
 
 
 
 
 export default function HomeScreen({ navigation }) {
+    const [contador, setcontador] = useState();
+    
+    
+    
+    
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Image
@@ -28,7 +29,7 @@ export default function HomeScreen({ navigation }) {
 
             />
             <Button title='Login' buttonStyle={styles.buttonLogin}></Button>
-            <Button title='Cadastre-se' buttonStyle={styles.buttonSenha} ></Button>
+            <Button onPress={() => navigation.navigate('CadastroUsuarioScreen')} title='Cadastre-se' buttonStyle={styles.buttonSenha} ></Button>
         </View>
     );
 
