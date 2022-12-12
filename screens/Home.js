@@ -28,7 +28,7 @@ export default function HomeScreen({ navigation }) {
                 secureTextEntry={true}
 
             />
-            <Button title='Login' buttonStyle={styles.buttonLogin}></Button>
+            <Button title='Login' onPress={() => navigation.navigate('ListarScreen')} buttonStyle={styles.buttonLogin}></Button>
             <Button onPress={() => navigation.navigate('CadastroUsuarioScreen')} title='Cadastre-se' buttonStyle={styles.buttonSenha} ></Button>
         </View>
     );
