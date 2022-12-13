@@ -11,12 +11,14 @@ import { useIsFocused } from '@react-navigation/native';
 export default function ListarScreen({navigation}) {
 
     
+   
+
     const [list,setList]=useState([]);
     const refresh = useIsFocused(); 
     useEffect(() =>{
         function consultarDados(){
     
-            axios.get('http://professornilson.com/testeservico/clientes')
+            axios.get('http://10.0.0.104:4500/phone/')
             
             .then(function (response) {
             console.log(response);
@@ -34,9 +36,9 @@ export default function ListarScreen({navigation}) {
 
 
         <View>
-            <Header
+            <Header backgroundColor='#666'
                     centerComponent={{ text: 'LISTAR', style: { color: '#fff' } }}
-                    rightComponent={ <Button title="+" onPress={() => navigation.navigate('InserirScreen')}>
+                    rightComponent={ <Button style={styles.button} title="+" onPress={() => navigation.navigate('InserirScreen')}>
                         
                     </Button> }
                 />
@@ -44,20 +46,27 @@ export default function ListarScreen({navigation}) {
             {
                 list.map((l, i) => (
                     <ListItem key={i} bottomDivider  onPress={()=> navigation.navigate('AlterarScreen', {
-                        nome:l.nome,
-                        telefone:l.telefone,
-                        cpf:l.cpf,
-                        id:l.id
+                        nome:l.celular_nome,
+                        armazenamento:l.armazenamento,
+                        valor:l.valor,
+                        id:l.idcelulares
                     })}>
                         <Avatar source={{ uri: "https://gravatar.com/avatar/53aa1f9f89c230a19a4f13626f83e864?s=400&d=robohash&r=x" }} />
                         <ListItem.Content>
-                            <ListItem.Title>{l.nome}</ListItem.Title>
-                            <ListItem.Subtitle>{l.email}</ListItem.Subtitle>
+                            <ListItem.Title>{l.celular_nome}</ListItem.Title>
+                            <ListItem.Subtitle>{l.armazenamento} - {l.valor}</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                 ))
             }
             </ScrollView>
+
+            
         </View>
     )
 }
+const styles = StyleSheet.create({
+    button:{
+        color:'red'
+    } 
+})

@@ -2,14 +2,26 @@ import { View } from 'react-native';
 import { Input, Image, Button } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import React, {useState} from 'react';
+import axios from 'axios';
 
 
 
 
 export default function HomeScreen({ navigation }) {
-    const [contador, setcontador] = useState(0);
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
     
-    
+    function login(){
+            axios.post("http://10.0.0.104:4500/user/login", {email}).then((response)=>{
+                if(response.data.length && response.data[0].user_password===senha) {
+                    navigation.navigate('ListarScreen')
+                }else{
+                    console.log("Senha incorreta")
+                }
+            })
+    }
+
+
     
     
     return (
@@ -21,15 +33,19 @@ export default function HomeScreen({ navigation }) {
             />
             <Input
                 placeholder='Email'
+                value={email}
                 keyboardType="email-address"
+                onChangeText={value => setEmail(value)}
             />
             <Input
+                value={senha}
                 placeholder='Senha'
                 secureTextEntry={true}
+                onChangeText={value => setSenha(value)}
 
             />
-            <Button title='Login' onPress={() => navigation.navigate('ListarScreen')} buttonStyle={styles.buttonLogin}></Button>
-            <Button onPress={() => navigation.navigate('CadastroUsuarioScreen')} title='Cadastre-se' buttonStyle={styles.buttonSenha} ></Button>
+            <Button title='Login' onPress={login} buttonStyle={styles.buttonLogin} disabled={!email || !senha}></Button>
+            <Button onPress={() => navigation.navigate('CadastroUsuarioScreen')} title='Cadastre-se' buttonStyle={styles.buttonSenha}></Button>
         </View>
     );
 

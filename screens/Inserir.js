@@ -6,61 +6,57 @@ import { StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import FlashMessage from "react-native-flash-message"; import { showMessage } from 'react-native-flash-message';
+import FlashMessage, { showMessage } from "react-native-flash-message";
 
 
 export default function Inserir({ route, navigation }) {
 
-    const [getNome, setNome] = useState();
-    const [getTelefone, setTelefone] = useState();
-    const [getCpf, setCpf] = useState();
+    const [celularNome, setCelularNome] = useState("");
+    const [armazenamento, setArmazenamento] = useState("");
+    const [valor, setValor] = useState("");
 
-
-
-
-    async function inserirDados() {
-
-        await axios.post('http://professornilson.com/testeservico/clientes', {
-            nome: getNome,
-            telefone: getTelefone,
-            cpf: getCpf
-        }).then(function (response) {
+    function inserir(){
+        axios.post("http://10.0.0.104:4500/phone/save",{celular_nome:celularNome, armazenamento: armazenamento, valor: valor}).then(()=>{
             showMessage({
-                message: "Registro salvo com sucesso",
+                message: "Item cadastrado com sucesso",
                 type: "success"
             })
-        }).catch(function (error) {
-            console.log(error);
-
-        });
-
+           
+        })
     }
 
+
+
+
+    
 
 
 
     return (
         <View style={{ alignItems: 'center' }}>
 
-            <Header
+            <Header backgroundColor='#666'
                 centerComponent={{ text: 'INSERIR', style: { color: '#fff' } }}
                 leftComponent={<Button title="<" onPress={() => navigation.navigate('ListarScreen')}>
 
                 </Button>}
             />
-            <Text>Digite seu Nome</Text>
-            <TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onChangeText={text => setNome(text)}
-                value={getNome}>
+            <Text>Modelo do celular</Text>
+            <TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} 
+            onChangeText={value => setCelularNome(value)}
+                value={celularNome}>
             </TextInput>
-            <Text>Digite seu Telefone</Text>
-            <TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onChangeText={text => setTelefone(text)}
-                value={getTelefone}></TextInput>
+            <Text>Capacidade de Armazenamento</Text>
+            <TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} 
+            onChangeText={value => setArmazenamento(value)}
+                value={armazenamento}></TextInput>
 
-            <Text>Digite seu Cpf</Text>
-            <TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} onChangeText={text => setCpf(text)}
-                value={getCpf}></TextInput>
+            <Text>Valor</Text>
+            <TextInput style={{ height: 40, width: 300, borderColor: 'gray', borderWidth: 1 }} 
+            onChangeText={value => setValor(value)}
+                value={valor}></TextInput>
 
-            <Button title="Salvar Dados" style={{ paddingTop: 20, width: 300 }} onPress={() => inserirDados()}></Button>
+            <Button title="Salvar Dados" style={{ paddingTop: 20, width: 300 }} onPress={inserir}></Button>
 
             <FlashMessage position="top"></FlashMessage>
         </View>

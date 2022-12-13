@@ -6,6 +6,7 @@ import CadastroUsuario from './screens/CadastroUsuario';
 import Listar from './screens/Listar';
 import Inserir from './screens/Inserir';
 import Alterar from './screens/Alterar';
+import CadastroCelular from './screens/CadastroCelular';
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Stack.Screen name="AlterarScreen" component={Alterar} options={{headerShown:false}}/>
         <Stack.Screen name="InserirScreen" component={Inserir} options={{headerShown:false}} />
         <Stack.Screen name="CadastroUsuarioScreen" component={CadastroUsuario} options={{headerShown:false}} />
+        <Stack.Screen name="CadastroCelularScreen" component={CadastroCelular} options={{headerShown:false}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
